@@ -24,6 +24,8 @@
  * 
  * Någon del av din kod ska vara i en egen funktion/metod. Exempelvis kan du ha en funktion för att kolla om gissningen är rätt eller fel som heter CheckGuess().
  */
+using System.Numerics;
+
 namespace NumbersGame
 {
 	internal class Program
@@ -32,20 +34,45 @@ namespace NumbersGame
 		{
 			while(true)
 			{
-				// skapar ett slumpmässigt tal som är det rätta talet
+				// initierar Random-klassen och max antal försök och högsta möjliga tal
 				Random random = new Random();
-				int correctNumber = random.Next(1, 20);
-				
-				Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1 och 20. Kan du gissa vilket? Du får fem försök.");
+				int amountOfTries = 0;
+				int maxValue = 0;
+
+				// välkomnar användaren och låter denne välja svårighetsgrad
+				Console.WriteLine("Välkommen! Välj svårighetsgrad:");
+				Console.WriteLine("(1) Enkel nivå");
+				Console.WriteLine("(2) Medelsvår nivå");
+				Console.WriteLine("(3) Svår nivå");
+				switch(Console.ReadLine())
+				{
+					case "1":
+						amountOfTries = 6;
+						maxValue = 10;
+						break;
+					case "2":
+						amountOfTries = 5;
+						maxValue = 25;
+						break;
+					case "3":
+						amountOfTries = 3;
+						maxValue = 50;
+						break;
+
+				}
+
+				// skapar ett slumpmässigt tal (baserat på svårighetsgrad) som är det rätta talet
+				int correctNumber = random.Next(1, maxValue);
+				Console.WriteLine($"Jag tänker på ett nummer mellan 1 och {maxValue}. Kan du gissa vilket? Du får {amountOfTries} försök.");
 
 				// ger användaren fem försök
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < amountOfTries; i++)
 				{
 					if (int.TryParse(Console.ReadLine(), out int answer))
 					{
 						// kollar om användaren gissade rätt
 						// om det är rätt blir det true och for-loopen avslutas
-						if (CheckGuess(answer, correctNumber, i) == true)
+						if (CheckGuess(answer, correctNumber, i, amountOfTries) == true)
 						{
 							break;
 						}
@@ -64,14 +91,14 @@ namespace NumbersGame
 				}
 			}
 		}
-		static bool CheckGuess(int answer, int correctNumber, int tries)
+		static bool CheckGuess(int answer, int correctNumber, int tries, int maxTries)
 		{
 			// sätter ett standard returnvärde för att inte få error
 			bool result = false;
 
 			//om användaren inte lyckas på fem försök
 			//variabeln tries är antalet försök och har ett index på 0
-			if ((answer != correctNumber) && (tries == 4))
+			if ((answer != correctNumber) && (tries == maxTries-1))
 			{
 				Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!");
 				result = false;
