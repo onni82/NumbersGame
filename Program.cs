@@ -42,24 +42,28 @@ namespace NumbersGame
 				{
 					if (int.TryParse(Console.ReadLine(), out int answer))
 					{
-						if(answer > correctNumber)
-						{
-
-						}
-						else if(answer < correctNumber)
-						{
-
-						}
-						else if (answer == correctNumber)
-						{
-
-						}
+						CheckGuess(answer, correctNumber);
 					}
 					else
 					{
 						Console.WriteLine("Du knappade inte in ett positivt tal.");
 					}
 				}
+			}
+		}
+		static void CheckGuess(int answer, int correctNumber)
+		{
+			if (answer > correctNumber)
+			{
+
+			}
+			else if (answer < correctNumber)
+			{
+
+			}
+			else if (answer == correctNumber)
+			{
+				Console.WriteLine("Wohoo! Du klarade det!");
 			}
 		}
 	}
