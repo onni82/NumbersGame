@@ -32,7 +32,7 @@ namespace NumbersGame
 		{
 			while(true)
 			{
-				//skapar ett slumpmässigt tal som är det rätta talet
+				// skapar ett slumpmässigt tal som är det rätta talet
 				Random random = new Random();
 				int correctNumber = random.Next(1, 20);
 				
@@ -42,7 +42,10 @@ namespace NumbersGame
 				{
 					if (int.TryParse(Console.ReadLine(), out int answer))
 					{
-						CheckGuess(answer, correctNumber);
+						if (CheckGuess(answer, correctNumber, i) == true)
+						{
+							break;
+						}
 					}
 					else
 					{
@@ -51,20 +54,30 @@ namespace NumbersGame
 				}
 			}
 		}
-		static void CheckGuess(int answer, int correctNumber)
+		static bool CheckGuess(int answer, int correctNumber, int tries)
 		{
-			if (answer > correctNumber)
+			bool result = false;
+			if ((answer != correctNumber) && (tries == 4))
 			{
-
+				Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!");
+				result = false;
+			}
+			else if (answer > correctNumber)
+			{
+				Console.WriteLine("Tyvärr, du gissade för högt!");
+				result = false;
 			}
 			else if (answer < correctNumber)
 			{
-
+				Console.WriteLine("Tyvärr, du gissade för lågt!");
+				result = false;
 			}
 			else if (answer == correctNumber)
 			{
 				Console.WriteLine("Wohoo! Du klarade det!");
+				result = true;
 			}
+			return result;
 		}
 	}
 }
