@@ -103,6 +103,19 @@ namespace NumbersGame
 				Console.WriteLine($"Tyvärr, du lyckades inte gissa talet på {maxTries} försök!");
 				result = false;
 			}
+			// om svaret är nära det rätta numret
+			else if((answer == correctNumber+1) || (answer == correctNumber-1))
+			{
+				// kollar om det nuvarande försöket är ett jämt eller ojämt tal och ger ut variationer av svaret baserat på det
+				if (tries % 2 == 0)
+				{
+					Console.WriteLine("Det bränns!");
+				}
+				else
+				{
+					Console.WriteLine("Det var nära!");
+				}
+			}
 			// om svaret är för högt
 			else if(answer > correctNumber)
 			{
