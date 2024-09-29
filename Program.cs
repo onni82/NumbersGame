@@ -66,13 +66,13 @@ namespace NumbersGame
 				Console.WriteLine($"Jag tänker på ett nummer mellan 1 och {maxValue}. Kan du gissa vilket? Du får {amountOfTries} försök.");
 
 				// ger användaren fem försök
-				for (int i = 0; i < amountOfTries; i++)
+				for(int i = 0; i < amountOfTries; i++)
 				{
-					if (int.TryParse(Console.ReadLine(), out int answer))
+					if(int.TryParse(Console.ReadLine(), out int answer))
 					{
 						// kollar om användaren gissade rätt
 						// om det är rätt blir det true och for-loopen avslutas
-						if (CheckGuess(answer, correctNumber, i, amountOfTries) == true)
+						if(CheckGuess(answer, correctNumber, i, amountOfTries) == true)
 						{
 							break;
 						}
@@ -98,24 +98,52 @@ namespace NumbersGame
 
 			//om användaren inte lyckas på fem försök
 			//variabeln tries är antalet försök och har ett index på 0
-			if ((answer != correctNumber) && (tries == maxTries-1))
+			if((answer != correctNumber) && (tries == maxTries-1))
 			{
-				Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!");
+				Console.WriteLine($"Tyvärr, du lyckades inte gissa talet på {maxTries} försök!");
 				result = false;
 			}
-			else if (answer > correctNumber)
+			// om svaret är för högt
+			else if(answer > correctNumber)
 			{
-				Console.WriteLine("Tyvärr, du gissade för högt!");
+				// kollar om det nuvarande försöket är ett jämt eller ojämt tal och ger ut variationer av svaret baserat på det
+				if(tries % 2 == 0)
+				{
+					Console.WriteLine("Tyvärr, du gissade för högt!");
+				}
+				else
+				{
+					Console.WriteLine("Bra gissat, men det var för högt.");
+				}
+				
 				result = false;
 			}
-			else if (answer < correctNumber)
+			// om svaret är för lågt
+			else if(answer < correctNumber)
 			{
-				Console.WriteLine("Tyvärr, du gissade för lågt!");
+				// kollar om det nuvarande försöket är ett jämt eller ojämt tal och ger ut variationer av svaret baserat på det
+				if (tries % 2 == 0)
+				{
+					Console.WriteLine("Tyvärr, du gissade för lågt!");
+				}
+				else
+				{
+					Console.WriteLine("Bra gissat, men det var för lågt.");
+				}
 				result = false;
 			}
-			else if (answer == correctNumber)
+			// om svaret är rätt
+			else if(answer == correctNumber)
 			{
-				Console.WriteLine("Wohoo! Du klarade det!");
+				// kollar om det nuvarande försöket är ett jämt eller ojämt tal och ger ut variationer av svaret baserat på det
+				if (tries % 2 == 0)
+				{
+					Console.WriteLine("Wohoo! Du klarade det!");
+				}
+				else
+				{
+					Console.WriteLine("Grattis! Det blev rätt!");
+				}
 				result = true;
 			}
 			return result;
