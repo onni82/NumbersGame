@@ -38,10 +38,13 @@ namespace NumbersGame
 				
 				Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1 och 20. Kan du gissa vilket? Du får fem försök.");
 
+				// ger användaren fem försök
 				for (int i = 0; i < 5; i++)
 				{
 					if (int.TryParse(Console.ReadLine(), out int answer))
 					{
+						// kollar om användaren gissade rätt
+						// om det är rätt blir det true och for-loopen avslutas
 						if (CheckGuess(answer, correctNumber, i) == true)
 						{
 							break;
@@ -52,11 +55,22 @@ namespace NumbersGame
 						Console.WriteLine("Du knappade inte in ett positivt tal.");
 					}
 				}
+
+				// kollar om användaren vill spela igen
+				Console.Write("Vill du spela igen? J/N: ");
+				if(Console.ReadLine().ToUpper() == "N")
+				{
+					break;
+				}
 			}
 		}
 		static bool CheckGuess(int answer, int correctNumber, int tries)
 		{
+			// sätter ett standard returnvärde för att inte få error
 			bool result = false;
+
+			//om användaren inte lyckas på fem försök
+			//variabeln tries är antalet försök och har ett index på 0
 			if ((answer != correctNumber) && (tries == 4))
 			{
 				Console.WriteLine("Tyvärr, du lyckades inte gissa talet på fem försök!");
